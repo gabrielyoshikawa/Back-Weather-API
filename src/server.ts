@@ -24,8 +24,8 @@ app.get('/', async function (req, res) {
         });
 
         // Filtro por dia
-         const result = filtered.filter((obj: { id: any; }) => {
-             return obj.id == '1';
+        const result = filtered.filter((obj: { id: any; }) => {
+            return obj.id == '1';
         });
         console.log(filtered);
         res.json(filtered)
@@ -35,6 +35,8 @@ app.get('/', async function (req, res) {
         console.error(error);
         res.status(500)
     }
-  })
-
+  });
+  
 app.listen(PORT);
+
+    
