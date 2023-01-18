@@ -30,8 +30,8 @@ app.get('/', async function (req, res) {
 
         // Define o dia como chave
         filtered.forEach((obj: {
+            tempMax: number; id: any; dayName: any; startTime: any; temp: any; wind: any; tempMin: number; diaSemana: string;  windMin: any; windMax: any; windAvg: number;
 
-            tempMax: number; id: any; dayName: any; startTime: any; temp: any; wind: any; tempMin: number; diaSemana: string;  windMin: any; windMax: any;
         }) => {
 
             objData[obj.dayName] = obj
@@ -39,35 +39,26 @@ app.get('/', async function (req, res) {
             obj.tempMax = obj.temp + 5
             obj.tempMin = obj.temp - 5
 
-            var res = obj.wind.split(',').map((el: any) => {
+            var res = obj.wind.split(" ").map((el: any) => {
                 let n = Number(el);
                 return n === 0 ? n : n || el;
             });
 
-            console.log(res)
-            console.log(res[0][0])
-            // var splitted = obj.wind.split("")
-            // console.log(splitted)
-            // var splitted2 = splitted.split(",")
-            // console.log(splitted2)
-            // if (splitted.includes('t', 'o')){
-            //     obj.windMin = (splitted[0], splitted[1])
-                
-            //     // obj.windMax = (splitted[]) Fazer Vento Máximo
-            // } else {
-
-            // }
-
+            if (obj.wind.includes("to")) {
+                obj.windMin = res[0]
+                obj.windMax = res[2]
+                obj.windAvg = (res[0] + res[2]) / 2
+            } else {
+                obj.windAvg = res[0]
+                obj.windMax = (res[0] + 5)
+                obj.windMin = (res[0] - 5)
+                if (obj.windMin < 0) {
+                    obj.windMin = 0;
+                }
+            } 
         }); 
-
-
         console.log(objData);
-        res.json(objData)
-
-        // Temperatura
-        // console.log(objData['Wednesday Night'].id)
-        // var tempMaxToday = objData.Tonight.temp = objData.Tonight.temp + 5
-        // console.log(tempMaxToday)
+        res.json(objData);
 
         // Erro
     } catch (error) {
@@ -77,5 +68,3 @@ app.get('/', async function (req, res) {
   });
   
 app.listen(PORT);
-
-    
