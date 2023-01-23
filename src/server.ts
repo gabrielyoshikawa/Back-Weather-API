@@ -36,7 +36,7 @@ app.get('/', async function (req, res) {
 
         }) => {
 
-            objData[obj.dayName] = obj
+            objData[Number((obj.id - 1))] = obj
             obj.diaSemana = dias[new Date(obj.startTime).getDay()]
             obj.tempMax = obj.temp + 5
             obj.tempMin = obj.temp - 5
@@ -59,6 +59,7 @@ app.get('/', async function (req, res) {
                 }
             } 
         }); 
+
         console.log(objData);
         res.json(objData);
 
