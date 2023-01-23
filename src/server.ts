@@ -1,11 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import axios from "axios";
+import cors from "cors";
 
 dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(cors())
 
 let objData: any = {}
 
@@ -30,7 +32,7 @@ app.get('/', async function (req, res) {
 
         // Define o dia como chave
         filtered.forEach((obj: {
-            tempMax: number; id: any; dayName: any; startTime: any; temp: any; wind: any; tempMin: number; diaSemana: string;  windMin: any; windMax: any; windAvg: number;
+            tempMax: number; id: any; dayName: any; startTime: any; temp: any; wind: any; tempMin: number; diaSemana: any; windMin: any; windMax: any; windAvg: number;
 
         }) => {
 
